@@ -1,0 +1,24 @@
+set system host-name vMX4
+set interfaces ge-0/0/0 mtu 1600
+set interfaces ge-0/0/0 unit 0 family inet address 198.18.0.7/31
+set interfaces ge-0/0/0 unit 0 family iso
+set interfaces ge-0/0/0 unit 0 family mpls
+set interfaces ge-0/0/1 encapsulation ethernet-ccc
+set interfaces ge-0/0/1 unit 0
+set interfaces lo0 unit 0 family inet address 198.18.255.4/32
+set interfaces lo0 unit 0 family iso address 49.0001.0000.0000.0004.00
+set protocols mpls interface all
+set protocols isis export ISIS_EXPORT
+set protocols isis level 1 disable
+set protocols isis level 2 wide-metrics-only
+set protocols isis interface ge-0/0/0.0 point-to-point
+set protocols isis interface lo0.0 passive
+set protocols ldp interface ge-0/0/0.0
+set protocols ldp interface lo0.0       
+set protocols l2circuit neighbor 198.18.255.3 interface ge-0/0/1.0 virtual-circuit-id 500
+set protocols l2circuit neighbor 198.18.255.3 interface ge-0/0/1.0 control-word
+set protocols l2circuit neighbor 198.18.255.3 interface ge-0/0/1.0 flow-label-transmit
+set protocols l2circuit neighbor 198.18.255.3 interface ge-0/0/1.0 flow-label-receive
+set policy-options policy-statement ISIS_EXPORT term 10 from interface lo0.0
+set policy-options policy-statement ISIS_EXPORT term 10 then accept
+set policy-options policy-statement ISIS_EXPORT term 20 then reject

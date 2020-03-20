@@ -1,0 +1,39 @@
+hostname xrv1
+domain name lab.local
+interface Loopback0 
+interface Loopback0 ipv4 address 198.18.255.1 255.255.255.255
+no interface GigabitEthernet0/0/0/0 shutdown
+interface GigabitEthernet0/0/0/0 mtu 1600
+interface GigabitEthernet0/0/0/0 ipv4 address 198.18.0.0 255.255.255.254
+no interface GigabitEthernet0/0/0/1 shutdown
+interface GigabitEthernet0/0/0/1 mtu 1600
+interface GigabitEthernet0/0/0/1 ipv4 address 198.18.0.2 255.255.255.254
+no interface GigabitEthernet0/0/0/2 shutdown
+interface GigabitEthernet0/0/0/2 mtu 1600
+interface GigabitEthernet0/0/0/2 ipv4 address 198.18.0.4 255.255.255.254
+router isis ISIS 
+router isis ISIS is-type level-2-only
+router isis ISIS net 49.0001.0000.0000.0001.00
+router isis ISIS address-family ipv4 unicast 
+router isis ISIS address-family ipv4 unicast metric-style wide
+router isis ISIS interface Loopback0 
+router isis ISIS interface Loopback0 passive
+router isis ISIS interface Loopback0 address-family ipv4 unicast 
+router isis ISIS interface GigabitEthernet0/0/0/0 
+router isis ISIS interface GigabitEthernet0/0/0/0 suppressed
+router isis ISIS interface GigabitEthernet0/0/0/0 point-to-point
+router isis ISIS interface GigabitEthernet0/0/0/0 address-family ipv4 unicast 
+router isis ISIS interface GigabitEthernet0/0/0/1 
+router isis ISIS interface GigabitEthernet0/0/0/1 suppressed
+router isis ISIS interface GigabitEthernet0/0/0/1 point-to-point
+router isis ISIS interface GigabitEthernet0/0/0/1 address-family ipv4 unicast 
+router isis ISIS interface GigabitEthernet0/0/0/2 
+router isis ISIS interface GigabitEthernet0/0/0/2 suppressed
+router isis ISIS interface GigabitEthernet0/0/0/2 point-to-point
+router isis ISIS interface GigabitEthernet0/0/0/2 address-family ipv4 unicast 
+mpls ldp 
+mpls ldp router-id 198.18.255.1
+mpls ldp interface GigabitEthernet0/0/0/0 
+mpls ldp interface GigabitEthernet0/0/0/1 
+mpls ldp interface GigabitEthernet0/0/0/2 
+end

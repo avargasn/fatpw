@@ -1,0 +1,166 @@
+version 12.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R5
+!
+boot-start-marker
+boot-end-marker
+!
+!
+no aaa new-model
+clock timezone EET 2
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+ip source-route
+!
+!
+!         
+!
+ip cef
+no ip domain lookup
+no ipv6 traffic interface-statistics
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+! 
+!
+!
+!
+!
+!         
+!
+!
+!
+interface Ethernet0/0
+ no ip address
+!
+interface Ethernet0/1
+ no ip address
+ shutdown
+!
+interface Ethernet0/2
+ no ip address
+ shutdown
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+          
+R5#ter
+R5#terminal le
+R5#terminal length 0
+R5#sh
+R5#show run
+R5#show running-config 
+Building configuration...
+
+Current configuration : 916 bytes
+!
+version 12.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R5
+!
+boot-start-marker
+boot-end-marker
+!
+!
+no aaa new-model
+clock timezone EET 2
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+ip source-route
+!
+!
+!
+!
+ip cef
+no ip domain lookup
+no ipv6 traffic interface-statistics
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+interface Ethernet0/0
+ no ip address
+!
+interface Ethernet0/1
+ no ip address
+ shutdown
+!
+interface Ethernet0/2
+ no ip address
+ shutdown
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+line aux 0
+line vty 0 4
+ login
+!
+exception data-corruption buffer truncate
+end
+
+R5#

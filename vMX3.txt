@@ -1,0 +1,37 @@
+set system host-name vMX3
+set interfaces ge-0/0/0 mtu 1600
+set interfaces ge-0/0/0 unit 0 family inet address 198.18.0.5/31
+set interfaces ge-0/0/0 unit 0 family iso
+set interfaces ge-0/0/0 unit 0 family mpls
+set interfaces ge-0/0/1 flexible-vlan-tagging
+set interfaces ge-0/0/1 native-vlan-id 500
+set interfaces ge-0/0/1 encapsulation flexible-ethernet-services
+set interfaces ge-0/0/1 unit 1005 encapsulation vlan-bridge
+set interfaces ge-0/0/1 unit 1005 vlan-tags outer 500
+set interfaces ge-0/0/1 unit 1005 vlan-tags inner 1005
+set interfaces ge-0/0/1 unit 1005 native-inner-vlan-id 1005
+set interfaces ge-0/0/2 flexible-vlan-tagging
+set interfaces ge-0/0/2 encapsulation flexible-ethernet-services
+set interfaces ge-0/0/2 unit 500 encapsulation vlan-bridge
+set interfaces ge-0/0/2 unit 500 vlan-id 500
+set interfaces ge-0/0/3 encapsulation ethernet-ccc
+set interfaces ge-0/0/3 unit 0
+set interfaces lo0 unit 0 family inet address 198.18.255.3/32
+set interfaces lo0 unit 0 family iso address 49.0001.0000.0000.0003.00
+set protocols mpls interface all
+set protocols isis export ISIS_EXPORT
+set protocols isis level 1 disable
+set protocols isis level 2 wide-metrics-only
+set protocols isis interface ge-0/0/0.0 point-to-point
+set protocols isis interface lo0.0 passive
+set protocols ldp interface ge-0/0/0.0
+set protocols ldp interface lo0.0
+set protocols l2circuit neighbor 198.18.255.4 interface ge-0/0/3.0 virtual-circuit-id 500
+set protocols l2circuit neighbor 198.18.255.4 interface ge-0/0/3.0 control-word
+set protocols l2circuit neighbor 198.18.255.4 interface ge-0/0/3.0 flow-label-transmit
+set protocols l2circuit neighbor 198.18.255.4 interface ge-0/0/3.0 flow-label-receive
+set policy-options policy-statement ISIS_EXPORT term 10 from interface lo0.0
+set policy-options policy-statement ISIS_EXPORT term 10 then accept
+set policy-options policy-statement ISIS_EXPORT term 20 then reject
+set bridge-domains VLAN500 interface ge-0/0/2.500
+set bridge-domains VLAN500 interface ge-0/0/1.1005
